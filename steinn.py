@@ -1,4 +1,6 @@
 import streamlit as st
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
 
 def average_TF(scores):
     # Selecteer de scores voor vraag 1, vraag 3 en vraag 5
@@ -148,6 +150,21 @@ def main():
     for category, data in sorted_scores:
         st.write(f"{category}: {data['gemiddelde']:.2f}")
         st.write(f"Uitleg: {data['uitleg']}")
+        
+    if st.button("Download resultaten als PDF"):
+        download_pdf(scores)
+
+def download_pdf(scores):
+    c = canvas.Canvas("resultaten.pdf", pagesize=letter)
+    y = 750
+    for category, data in scores.items():
+        c.drawString(100, y, f"{category}: {data['gemiddelde']:.2f}")
+        c.drawString(100, y - 20, f"Uitleg: {data['uitleg']}")
+        y -= 50
+    c.save()
+    st.success("PDF-bestand is gedownload.")
+
+
 
 if __name__ == "__main__":
     main()
