@@ -47,6 +47,13 @@ def main():
 
     # Vragenlijst
     st.header("Vragenlijst")
+    st.write("0 = is nooit van toepassing")
+    st.write("1 = is zo nu en dan van toepassing")
+    st.write("2 = is soms van toepassing")
+    st.write("3 = is regelmatig van toepassing")
+    st.write("4 = is vaak van toepassing")
+    st.write("5 = is bijna altijd van toepassing")
+    st.write("6 = is altijd van toepassing")
     questions = [
 "1. Ik droom ervan zo goed te zijn in wat ik doe dat er voortdurend om mijn deskundige advies wordt gevraagd",
 "2. Ik heb de meeste voldoening van mijn werk wanneer ik de inspanningen van anderen heb kunnen verenigen en managen.",
