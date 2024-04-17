@@ -1,6 +1,7 @@
 import streamlit as st
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
+from github import Github
 
 def average_TF(scores):
     # Selecteer de scores voor vraag 1, vraag 3 en vraag 5
@@ -224,7 +225,15 @@ def main():
             y_position = current_y - 20  # Extra ruimte tussen de scores
 
         c.save()
-
+    def upload_to_github(pdf_data):
+    # Verbinding maken met GitHub
+        g = Github("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")  # Voeg hier je GitHub-toegangstoken toe
+        repo = g.get_repo("TimValks/steinn")  # Vervang 'username' en 'repository_name' door jouw GitHub-gebruikersnaam en repository-naam
+    
+    # PDF-bestand uploaden naar GitHub
+        contents = pdf_data.decode('latin1')  # GitHub accepteert geen bytes, dus decoderen naar een string
+        repo.create_file("result.pdf", "Commit message", contents, branch="main")
+    
 # Genereer en download het PDF-bestand
     generate_pdf(sorted_scores)
     with open("result.pdf", "rb") as f:
