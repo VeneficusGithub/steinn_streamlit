@@ -3,6 +3,7 @@ from datetime import datetime
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 from github import Github
+import json
 
 def average_TF(scores):
     # Selecteer de scores voor vraag 1, vraag 3 en vraag 5
@@ -46,7 +47,7 @@ def average_LS(scores):
     average = sum(selected_scores_4)/len(selected_scores_4)
     return average
 
-def generate_pdf(sorted_scores, user_name):
+def generate_pdf(sorted_scores, user_name, user_role, data_functie):
         # Generate a PDF document
     c = canvas.Canvas("result.pdf", pagesize=letter)
     
@@ -54,12 +55,14 @@ def generate_pdf(sorted_scores, user_name):
     c.drawString(100, 750, "Rangschikking van scores:")
 
         # Voeg de gesorteerde scores toe aan het PDF-bestand
-    y_position = 710  # Startpositie voor de tekst
+    y_position = 670  # Startpositie voor de tekst
     for index, (category, data) in enumerate(sorted_scores):
         c.drawString(100, y_position, f"{category}: {data['gemiddelde']:.2f}")
         uitleg_text = data['uitleg']
 
         c.drawString(100, 730, f"Gebruiker: {user_name}")
+        c.drawString(100, 710, f"Gebruikersrol: {user_role}")
+        c.drawString(100, 690, f"Functie: {data_functie}")
     
             # Bepaal de juiste regelafstand voor de uitlegtekst
         line_height = 15
@@ -93,26 +96,44 @@ def generate_pdf(sorted_scores, user_name):
     c.save()
     return "result.pdf"  # Retourneer de bestandsnaam van het gegenereerde PDF-bestand
 
-# counter = count()
+# def upload_to_github(pdf_file, user_name):
+#     # Verbinding maken met GitHub
+#     g = Github("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")  # Voeg hier je GitHub-toegangstoken toe
+#     repo = g.get_repo("TimValks/steinn")  
+    
+#     timestamp = datetime.now().strftime("%Y-%m-%d")
+#     folder_path = "resultaten"  # Mapnaam waarin je de bestanden wilt uploaden
+#     file_path = f"{folder_path}/result_{user_name}_{timestamp}.pdf"
+#     # Inhoud van het bestand
+#     with open(pdf_file, "rb") as f:
+#         contents = f.read()
 
-def upload_to_github(pdf_file, user_name):
+#     # Bestand aanmaken
+#     try:
+#         repo.create_file(file_path, "Commit message", contents, branch="master")
+#     except Exception as e:
+#         print("Fout bij het uploaden van het bestand naar GitHub:", e)
+
+def upload_json(json_data, user_name):
     # Verbinding maken met GitHub
-    g = Github("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")  # Voeg hier je GitHub-toegangstoken toe
+    g = Github("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")  
     repo = g.get_repo("TimValks/steinn")  
     
+    folder_path = "resultaten"  # Mapnaam waarin de bestanden zich bevinden
+
+    # Bestandspad voor het JSON-bestand
     timestamp = datetime.now().strftime("%Y-%m-%d")
-    folder_path = "resultaten"  # Mapnaam waarin je de bestanden wilt uploaden
-    file_path = f"{folder_path}/result_{user_name}_{timestamp}.pdf"
-    # Inhoud van het bestand
-    with open(pdf_file, "rb") as f:
-        contents = f.read()
+    json_file_name = f"result_{user_name}_{timestamp}.json"
+    json_file_path = f"{folder_path}/{json_file_name}"
+
+    # Inhoud van het JSON-bestand
+    json_content = json.dumps(json_data)
 
     # Bestand aanmaken
     try:
-        repo.create_file(file_path, "Commit message", contents, branch="master")
+        repo.create_file(json_file_path, "Commit message", json_content, branch="master")
     except Exception as e:
-        print("Fout bij het uploaden van het bestand naar GitHub:", e)
-
+        print("Fout bij het uploaden van het JSON-bestand naar GitHub:", e)
 
 def main():
     st.title("Loopbaanankers van Scheinn")
@@ -124,6 +145,9 @@ def main():
         st.write(f"Hallo, {user_name}! Welkom bij Loopbaanankers van Scheinn vragenlijst.")
     else:
         st.write("Voer alstublieft uw naam in het bovenstaande veld in.")
+
+    user_role = st.selectbox("Functie:", ["Trainee", "Consultant"])
+    data_functie = st.selectbox("Met welke functie associeer je jezelf het meest:", ["Data Analist", "Data Engineer", "Data Scientist"])
 
     # Vragenlijst
     st.header("Vragenlijst")
@@ -252,23 +276,63 @@ def main():
     }
 
     # Sorteer de gemiddelde scores van hoog naar laag
+#     sorted_scores = sorted(scores.items(), key=lambda x: x[1]["gemiddelde"], reverse=True)
+# # Toon de gerangschikte gemiddelde scores
+#     for category, data in sorted_scores:
+#         st.write(f"{category}: {data['gemiddelde']:.2f}")
+#         st.write(f"Uitleg: {data['uitleg']}")
+
+#     pdf_file = generate_pdf(sorted_scores, user_name)
+
+# # Omzetten van de gesorteerde scores naar JSON-formaat
+#     json_data = json.dumps({category: category_averages for category in sorted_scores})
+
+# # Uploaden van JSON naar GitHub
+#     upload_json(json_data, user_name)
+
+# # Downloadknop voor het PDF-bestand toevoegen aan de Streamlit-app
+#     with open(pdf_file, "rb") as f:
+#         data = f.read()
+#     st.download_button(label="Click here to download PDF", data=data, file_name="result.pdf", mime="application/pdf")
+#     st.success("PDF-bestand is gedownload!")
+
     sorted_scores = sorted(scores.items(), key=lambda x: x[1]["gemiddelde"], reverse=True)
+
 # Toon de gerangschikte gemiddelde scores
     for category, data in sorted_scores:
         st.write(f"{category}: {data['gemiddelde']:.2f}")
         st.write(f"Uitleg: {data['uitleg']}")
 
+    pdf_file = generate_pdf(sorted_scores, user_name, user_role, data_functie)
 
-    pdf_file = generate_pdf(sorted_scores, user_name)
+# Omzetten van de gesorteerde scores naar JSON-formaat
+    json_data = json.dumps({
+    "Rol": user_role,  # Toevoegen van gebruikersrol
+    "Data functie": data_functie,
+    **{category: data["gemiddelde"] for category, data in sorted_scores}
+})
 
-    # Uploaden van PDF naar GitHub
-    upload_to_github(pdf_file, user_name)
+# Uploaden van JSON naar GitHub
+    upload_json(json_data, user_name)
 
-    # Downloadknop voor het PDF-bestand toevoegen aan de Streamlit-app
+# Downloadknop voor het PDF-bestand toevoegen aan de Streamlit-app
     with open(pdf_file, "rb") as f:
         data = f.read()
     st.download_button(label="Click here to download PDF", data=data, file_name="result.pdf", mime="application/pdf")
     st.success("PDF-bestand is gedownload!")
+
+    # pdf_file = generate_pdf(sorted_scores, user_name)
+
+    # # Uploaden van PDF naar GitHub
+    # # upload_to_github(pdf_file, user_name)
+
+
+
+    # # Downloadknop voor het PDF-bestand toevoegen aan de Streamlit-app
+    # with open(pdf_file, "rb") as f:
+    #     data = f.read()
+    # st.download_button(label="Click here to download PDF", data=data, file_name="result.pdf", mime="application/pdf")
+    # st.success("PDF-bestand is gedownload!")
 
     
     #     # Genereer het PDF-bestand
