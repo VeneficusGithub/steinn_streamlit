@@ -1,4 +1,5 @@
 import streamlit as st
+from datetime import datetime
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 from github import Github
@@ -45,8 +46,84 @@ def average_LS(scores):
     average = sum(selected_scores_4)/len(selected_scores_4)
     return average
 
+def generate_pdf(sorted_scores, user_name):
+        # Generate a PDF document
+    c = canvas.Canvas("result.pdf", pagesize=letter)
+    
+        # Teken de kop alleen op de eerste pagina
+    c.drawString(100, 750, "Rangschikking van scores:")
+
+        # Voeg de gesorteerde scores toe aan het PDF-bestand
+    y_position = 710  # Startpositie voor de tekst
+    for index, (category, data) in enumerate(sorted_scores):
+        c.drawString(100, y_position, f"{category}: {data['gemiddelde']:.2f}")
+        uitleg_text = data['uitleg']
+
+        c.drawString(100, 730, f"Gebruiker: {user_name}")
+    
+            # Bepaal de juiste regelafstand voor de uitlegtekst
+        line_height = 15
+        max_width = 400  # Maximale breedte van de tekst
+        current_y = y_position - 30  # Huidige y-positie voor de tekst
+        
+            # Breek de uitlegtekst op in paragrafen
+        paragraphs = []
+        current_paragraph = ""
+        for word in uitleg_text.split():
+            if c.stringWidth(current_paragraph + " " + word, "Helvetica", 12) <= max_width:
+                current_paragraph += " " + word
+            else:
+                paragraphs.append(current_paragraph.strip())
+                current_paragraph = word
+        if current_paragraph:
+            paragraphs.append(current_paragraph.strip())
+
+         # Tekenen van de uitlegtekst op meerdere regels
+        for paragraph in paragraphs:
+            if current_y < 50:  # Als er niet genoeg ruimte op de huidige pagina is, voeg een nieuwe pagina toe
+                c.showPage()
+                y_position = 750  # Begin de nieuwe pagina bij de bovenkant
+                current_y = y_position - 30  # Huidige y-positie voor de tekst op de nieuwe pagina
+
+            c.drawString(120, current_y, paragraph)
+            current_y -= line_height  # Verplaats de y-positie voor de volgende paragraaf
+
+        y_position = current_y - 20  # Extra ruimte tussen de scores
+
+    c.save()
+    return "result.pdf"  # Retourneer de bestandsnaam van het gegenereerde PDF-bestand
+
+# counter = count()
+
+def upload_to_github(pdf_file, user_name):
+    # Verbinding maken met GitHub
+    g = Github("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")  # Voeg hier je GitHub-toegangstoken toe
+    repo = g.get_repo("TimValks/steinn")  
+    
+    timestamp = datetime.now().strftime("%Y-%m-%d")
+    folder_path = "resultaten"  # Mapnaam waarin je de bestanden wilt uploaden
+    file_path = f"{folder_path}/result_{user_name}_{timestamp}.pdf"
+    # Inhoud van het bestand
+    with open(pdf_file, "rb") as f:
+        contents = f.read()
+
+    # Bestand aanmaken
+    try:
+        repo.create_file(file_path, "Commit message", contents, branch="master")
+    except Exception as e:
+        print("Fout bij het uploaden van het bestand naar GitHub:", e)
+
+
 def main():
     st.title("Loopbaanankers van Scheinn")
+
+    user_name = st.text_input("Voer uw naam in")
+
+# Controleer of de naam is ingevuld en toon een bericht
+    if user_name:
+        st.write(f"Hallo, {user_name}! Welkom bij Loopbaanankers van Scheinn vragenlijst.")
+    else:
+        st.write("Voer alstublieft uw naam in het bovenstaande veld in.")
 
     # Vragenlijst
     st.header("Vragenlijst")
@@ -182,65 +259,26 @@ def main():
         st.write(f"Uitleg: {data['uitleg']}")
 
 
-    def generate_pdf(sorted_scores):
-    # Generate a PDF document
-        c = canvas.Canvas("result.pdf", pagesize=letter)
-    
-    # Teken de kop alleen op de eerste pagina
-        c.drawString(100, 750, "Rangschikking van scores:")
+    pdf_file = generate_pdf(sorted_scores, user_name)
 
-    # Voeg de gesorteerde scores toe aan het PDF-bestand
-        y_position = 730  # Startpositie voor de tekst
-        for index, (category, data) in enumerate(sorted_scores):
-            c.drawString(100, y_position, f"{category}: {data['gemiddelde']:.2f}")
-            uitleg_text = data['uitleg']
-        
-        # Bepaal de juiste regelafstand voor de uitlegtekst
-            line_height = 15
-            max_width = 400  # Maximale breedte van de tekst
-            current_y = y_position - 30  # Huidige y-positie voor de tekst
-        
-        # Breek de uitlegtekst op in paragrafen
-            paragraphs = []
-            current_paragraph = ""
-            for word in uitleg_text.split():
-                if c.stringWidth(current_paragraph + " " + word, "Helvetica", 12) <= max_width:
-                    current_paragraph += " " + word
-                else:
-                    paragraphs.append(current_paragraph.strip())
-                    current_paragraph = word
-            if current_paragraph:
-                paragraphs.append(current_paragraph.strip())
+    # Uploaden van PDF naar GitHub
+    upload_to_github(pdf_file, user_name)
 
-        # Tekenen van de uitlegtekst op meerdere regels
-            for paragraph in paragraphs:
-                if current_y < 50:  # Als er niet genoeg ruimte op de huidige pagina is, voeg een nieuwe pagina toe
-                    c.showPage()
-                    y_position = 750  # Begin de nieuwe pagina bij de bovenkant
-                    current_y = y_position - 30  # Huidige y-positie voor de tekst op de nieuwe pagina
-
-                c.drawString(120, current_y, paragraph)
-                current_y -= line_height  # Verplaats de y-positie voor de volgende paragraaf
-
-            y_position = current_y - 20  # Extra ruimte tussen de scores
-
-        c.save()
-    def upload_to_github(pdf_data):
-    # Verbinding maken met GitHub
-        g = Github("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")  # Voeg hier je GitHub-toegangstoken toe
-        repo = g.get_repo("TimValks/steinn")  # Vervang 'username' en 'repository_name' door jouw GitHub-gebruikersnaam en repository-naam
-    
-    # PDF-bestand uploaden naar GitHub
-        contents = pdf_data.decode('latin1')  # GitHub accepteert geen bytes, dus decoderen naar een string
-        repo.create_file("result.pdf", "Commit message", contents, branch="main")
-    
-# Genereer en download het PDF-bestand
-    generate_pdf(sorted_scores)
-    with open("result.pdf", "rb") as f:
+    # Downloadknop voor het PDF-bestand toevoegen aan de Streamlit-app
+    with open(pdf_file, "rb") as f:
         data = f.read()
- 
     st.download_button(label="Click here to download PDF", data=data, file_name="result.pdf", mime="application/pdf")
     st.success("PDF-bestand is gedownload!")
+
+    
+    #     # Genereer het PDF-bestand
+    # pdf_file = generate_pdf(sorted_scores)
+    
+    # # Uploaden van PDF naar GitHub
+    # upload_to_github(pdf_file)
+
+    # st.download_button(label="Click here to download PDF", data=pdf_file, file_name="result.pdf", mime="application/pdf")
+    # st.success("PDF-bestand is gedownload!")
    
 
 
