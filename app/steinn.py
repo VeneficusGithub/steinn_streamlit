@@ -58,73 +58,50 @@ def main():
     st.write("6 = is altijd van toepassing")
     questions = [
 "1. Ik droom ervan zo goed te zijn in wat ik doe dat er voortdurend om mijn deskundige advies wordt gevraagd",
-"2. Ik heb de meeste voldoening van mijn werk wanneer ik de inspanningen van anderen heb kunnen verenigen en managen.",
-"3. Ik droom ervan een loopbaan te hebben waarin ik vrij ben een taak op mijn eigen manier en volgens mijn eigen schema uit te voeren.",
-"4. Ik vind zekerheid en stabiliteit belangrijker dan vrijheid en autonomie.",
-"5. Ik ben altijd op zoek naar ideeën waardoor ik mijn eigen bedrijf zou kunnen beginnen.",
-"6. Alleen als ik het gevoel heb een daadwerkelijke bijdrage geleverd te hebben aan het maatschappelijk welzijn, voel ik mij geslaagd in mijn loopbaan. ",
-"7. Ik droom van een loopbaan waarin ik problemen kan oplossen of zeer uitdagende situaties het hoofd kan bieden. ",
-"8. Ik zou nog eerder weggaan bij het bedrijf waar ik werk dan een baan te accepteren die het mij onmogelijk maakt persoonlijke en gezinszaken na te streven.",
-"9. Ik voel me alleen geslaagd in mijn loopbaan als ik mijn technische of functionele vaardigheden tot een zeer hoog competentieniveau kan ontwikkelen. ",
-"10. Ik droom ervan aan het hoofd te staan van een complexe organisatie en beslissingen te nemen die veel mensen beïnvloeden. ",
-"11. Ik heb de meeste voldoening van mijn werk wanneer ik volledig vrij ben in het bepalen van mijn eigen taken, schema’s en procedures. ",
-"12. Ik zou nog eerder weggaan bij het bedrijf waar ik werk dan een taak te accepteren die mijn zekerheid in de organisatie in gevaar zou brengen.",
-"13. Ik vind het opbouwen van mijn eigen bedrijf belangrijker dan het bereiken van een hoge managementpositie in de organisatie van iemand anders.",
-"14. Ik heb de meeste voldoening van mijn werk wanneer ik mijn talenten in dienst van anderen heb kunnen gebruiken.",
-"15. Ik voel me alleen geslaagd in mijn loopbaan als ik te maken heb met zeer moeilijke uitdagingen en deze het hoofd kan bieden.",
+"2. Ik heb de meeste voldoening van mijn werk wanneer ik de inspanningen van anderen heb kunnen verenigen en managen",
+"3. Ik droom ervan een loopbaan te hebben waarin ik vrij ben een taak op mijn eigen manier en volgens mijn eigen schema uit te voeren",
+"4. Ik vind zekerheid en stabiliteit belangrijker dan vrijheid en autonomie",
+"5. Ik ben altijd op zoek naar ideeën waardoor ik mijn eigen bedrijf zou kunnen beginnen",
+"6. Alleen als ik het gevoel heb een daadwerkelijke bijdrage geleverd te hebben aan het maatschappelijk welzijn, voel ik mij geslaagd in mijn loopbaan",
+"7. Ik droom van een loopbaan waarin ik problemen kan oplossen of zeer uitdagende situaties het hoofd kan bieden",
+"8. Ik zou nog eerder weggaan bij het bedrijf waar ik werk dan een baan te accepteren die het mij onmogelijk maakt persoonlijke en gezinszaken na te streven",
+"9. Ik voel me alleen geslaagd in mijn loopbaan als ik mijn technische of functionele vaardigheden tot een zeer hoog competentieniveau kan ontwikkelen",
+"10. Ik droom ervan aan het hoofd te staan van een complexe organisatie en beslissingen te nemen die veel mensen beïnvloeden",
+"11. Ik heb de meeste voldoening van mijn werk wanneer ik volledig vrij ben in het bepalen van mijn eigen taken, schema’s en procedures",
+"12. Ik zou nog eerder weggaan bij het bedrijf waar ik werk dan een taak te accepteren die mijn zekerheid in de organisatie in gevaar zou brengen",
+"13. Ik vind het opbouwen van mijn eigen bedrijf belangrijker dan het bereiken van een hoge managementpositie in de organisatie van iemand anders",
+"14. Ik heb de meeste voldoening van mijn werk wanneer ik mijn talenten in dienst van anderen heb kunnen gebruiken",
+"15. Ik voel me alleen geslaagd in mijn loopbaan als ik te maken heb met zeer moeilijke uitdagingen en deze het hoofd kan bieden",
 "16. Ik droom van een loopbaan waarin ik mijn persoonlijke, gezins-, en arbeidsbehoeften kan verenigen.",
-"17. Ik vind het aantrekkelijker een hogere functionele manager op mijn competentieterrein te worden dan een algemeen manager. ",
-"18.	Ik voel me alleen geslaagd in mijn loopbaan als ik algemeen manager in een organisatie word.",
-"19.	Ik voel me alleen geslaagd in mijn loopbaan als ik volledige autonomie en vrijheid verwerf.",
-"20.	Ik zoek een baan in een organisatie die mij een gevoel van zekerheid en stabiliteit geeft.",
-"21.	Ik heb de meeste voldoening van mijn werk wanneer ik iets heb kunnen opbouwen wat volledig het resultaat is van mijn eigen ideeën en inspanningen.",
-"22.	Ik vind het belangrijker mijn vaardigheden te gebruiken om de wereld aantrekkelijker te maken om in te wonen en te werken dan een hoge managementpositie te bereiken.",
-"23.	Ik heb de meeste voldoening van mijn werk wanneer ik ogenschijnlijk onoplosbare problemen heb opgelost of ogenschijnlijk onmogelijke tegenslagen heb overwonnen.",
-"24.	Ik voel me alleen geslaagd in mijn leven als ik mijn persoonlijke-, gezins- en loopbaaneisen met elkaar in evenwicht kan brengen.",
-"25.	Ik zou nog eerder weggaan bij het bedrijf waar ik werk dan een taakroulatie te accepteren waardoor ik mijn competentieterrein zou moeten verlaten.",
-"26.	Ik vind het aantrekkelijker algemeen manager te worden dan een hogere functionele manager op mijn huidige competentieterrein.",
-"27.	Een taak op mijn eigen manier doen, vrij van regels en beperkingen, vind ik belangrijker dan zekerheid.",
-"28.	Ik heb de meeste voldoening van mijn werk wanneer ik weet dat ik volledige financiële zekerheid heb en zeker ben van mijn baan.",
-"29.	Ik voel me alleen geslaagd in mijn loopbaan als het me gelukt is iets te creëren of op te bouwen wat volledig mijn eigen product of idee is.",
-"30.	Ik droom van een loopbaan die daadwerkelijk een bijdrage levert aan de mensheid en de maatschappij.",
-"31.	Ik zoek naar kansen op het werk die in sterke mate een uitdaging vormen voor mijn probleemoplossende en/of prestatiegerichte vaardigheden.",
-"32.	Ik vind het belangrijker de eisen van mijn persoonlijke en beroepsleven met elkaar in evenwicht te brengen dan een hoge managementpositie te bereiken.",
-"33.	Ik heb de meeste voldoening van mijn werk wanneer ik mijn speciale vaardigheden en talenten kan gebruiken.",
-"34.	Ik zou nog eerder weggaan bij het bedrijf waar ik werk dan een baan te accepteren waardoor ik van het algemeen managementspoor zou afdwalen.",
-"35.	Ik zou nog eerder weggaan bij het bedrijf waar ik werk dan een baan te accepteren waardoor mijn autonomie en vrijheid zouden verminderen.",
-"36.	Ik droom van een loopbaan waarin ik een gevoel van zekerheid en stabiliteit ervaar.",
-"37.	Ik droom ervan mijn eigen bedrijf te beginnen en op te bouwen.",
-"38.	Ik zou nog eerder weggaan bij het bedrijf waar ik werk dan een taak te accepteren waardoor ik anderen minder goed van dienst zou kunnen zijn.",
-"39.	Ik vind het belangrijker aan vrijwel onoplosbare problemen te werken dan een hoge managementpositie te bereiken.",
-"40.	Ik heb altijd gezocht naar werk dat zo min mogelijk invloed heeft op mijn persoonlijke of gezinszaken."
+"17. Ik vind het aantrekkelijker een hogere functionele manager op mijn competentieterrein te worden dan een algemeen manager",
+"18.	Ik voel me alleen geslaagd in mijn loopbaan als ik algemeen manager in een organisatie word",
+"19.	Ik voel me alleen geslaagd in mijn loopbaan als ik volledige autonomie en vrijheid verwerf",
+"20.	Ik zoek een baan in een organisatie die mij een gevoel van zekerheid en stabiliteit geeft",
+"21.	Ik heb de meeste voldoening van mijn werk wanneer ik iets heb kunnen opbouwen wat volledig het resultaat is van mijn eigen ideeën en inspanningen",
+"22.	Ik vind het belangrijker mijn vaardigheden te gebruiken om de wereld aantrekkelijker te maken om in te wonen en te werken dan een hoge managementpositie te bereiken",
+"23.	Ik heb de meeste voldoening van mijn werk wanneer ik ogenschijnlijk onoplosbare problemen heb opgelost of ogenschijnlijk onmogelijke tegenslagen heb overwonnen",
+"24.	Ik voel me alleen geslaagd in mijn leven als ik mijn persoonlijke-, gezins- en loopbaaneisen met elkaar in evenwicht kan brengen",
+"25.	Ik zou nog eerder weggaan bij het bedrijf waar ik werk dan een taakroulatie te accepteren waardoor ik mijn competentieterrein zou moeten verlaten",
+"26.	Ik vind het aantrekkelijker algemeen manager te worden dan een hogere functionele manager op mijn huidige competentieterrein",
+"27.	Een taak op mijn eigen manier doen, vrij van regels en beperkingen, vind ik belangrijker dan zekerheid",
+"28.	Ik heb de meeste voldoening van mijn werk wanneer ik weet dat ik volledige financiële zekerheid heb en zeker ben van mijn baan",
+"29.	Ik voel me alleen geslaagd in mijn loopbaan als het me gelukt is iets te creëren of op te bouwen wat volledig mijn eigen product of idee is",
+"30.	Ik droom van een loopbaan die daadwerkelijk een bijdrage levert aan de mensheid en de maatschappij",
+"31.	Ik zoek naar kansen op het werk die in sterke mate een uitdaging vormen voor mijn probleemoplossende en/of prestatiegerichte vaardigheden",
+"32.	Ik vind het belangrijker de eisen van mijn persoonlijke en beroepsleven met elkaar in evenwicht te brengen dan een hoge managementpositie te bereiken",
+"33.	Ik heb de meeste voldoening van mijn werk wanneer ik mijn speciale vaardigheden en talenten kan gebruiken",
+"34.	Ik zou nog eerder weggaan bij het bedrijf waar ik werk dan een baan te accepteren waardoor ik van het algemeen managementspoor zou afdwalen",
+"35.	Ik zou nog eerder weggaan bij het bedrijf waar ik werk dan een baan te accepteren waardoor mijn autonomie en vrijheid zouden verminderen",
+"36.	Ik droom van een loopbaan waarin ik een gevoel van zekerheid en stabiliteit ervaar",
+"37.	Ik droom ervan mijn eigen bedrijf te beginnen en op te bouwen",
+"38.	Ik zou nog eerder weggaan bij het bedrijf waar ik werk dan een taak te accepteren waardoor ik anderen minder goed van dienst zou kunnen zijn",
+"39.	Ik vind het belangrijker aan vrijwel onoplosbare problemen te werken dan een hoge managementpositie te bereiken",
+"40.	Ik heb altijd gezocht naar werk dat zo min mogelijk invloed heeft op mijn persoonlijke of gezinszaken"
 ]
     
-
-#     question_scores = {question: 0 for question in questions}
-
-# # Functie om 4 punten toe te voegen aan de score van een stelling
-#     def add_points(question):
-#         question_scores[question] += 4
-
-# # Functie om de stelling, slider en knop te tonen
-#     def show_question(question):
-#         st.write(f"{question}:")
-#         score = question_scores[question]
-#         st.slider("Score", 0, 6, value=score, step=1, key=question)
-    
-#     if st.button("Voeg 4 punten toe", key=question):
-#         add_points(question)
-    
-#     for question in questions:
-#         show_question(question)
-
-# # Toon de scores van alle stellingen
-#     for question, score in question_scores.items():
-#         st.write(f"{question}: {score}")
     
     # Dictionary om scores bij te houden
     question_scores = {question: 0 for question in questions}
-    question_checked = {question: False for question in questions}
 
     # bonus_counter = 0
 
@@ -132,18 +109,7 @@ def main():
     def add_points(question):
         question_scores[question] += 4
 
-# # Functie om het selectievakje (checkbox) en de slider te tonen en punten toe te voegen indien aangevinkt
-#     def show_question(question, index):
-#         global bonus_counter  # Gebruik de bonus_counter variabele die buiten de functie gedefinieerd is
-#         st.write(f"{question}:")
-#         score = question_scores[question]
-#         col1, col2 = st.columns([4, 1])
-#         question_scores[question] = col1.slider("", 0, 6, value=score, step=1, key=f"slider_{index}")
-#         if bonus_counter < 3:  # Controleer of de bonus nog niet 3 keer is toegevoegd
-#             checked = col2.checkbox("Bonus", key=f"checkbox_{index}")
-#             if checked:
-#                 add_points(question)
-#                 bonus_counter += 1  # Verhoog de teller als de checkbox is aangeklikt
+
     def show_question(question, index):
         st.write(f"{question}:")
         score = question_scores[question]
@@ -185,28 +151,6 @@ def main():
     for category, average in average_scores(question_scores, questions).items():
         st.write(f"{category}: {average:.2f}")
 
-    # answers = []
-    # for question in questions:
-    #     answer = st.slider(question, 0, 6, step=1)
-    #     answers.append(answer)
-    # # Bereken en toon uitslag
-    # st.header("Scores")
-    # average = average_TF(answers)
-    # # st.write(f"Technisch Functioneel: {average:.2f}")
-    # average2 = average_AM(answers)
-    # # st.write(f"Algemeen Management: {average2:.2f}")
-    # average3 = average_AU(answers)
-    # # st.write(f"Autonomie/onafhankelijkheid: {average3:.2f}")
-    # average4 = average_ZE(answers)
-    # # st.write(f"Zekerheid/stabiliteit: {average4:.2f}")
-    # average5 = average_OC(answers)
-    # # st.write(f"Ondernemingsgerichte creativiteit: {average5:.2f}")
-    # average6 = average_DV(answers)
-    # # st.write(f"Gevoel van dienstverlening, toewijding aan de zaak: {average6:.2f}")
-    # average7 = average_UI(answers)
-    # # st.write(f"Zuivere uitdaging: {average7:.2f}")
-    # average8 = average_LS(answers)
-    # st.write(f"Levensstijl: {average8:.2f}")
     category_averages = average_scores(question_scores, questions)
 
     st.header("Rangschikking")
