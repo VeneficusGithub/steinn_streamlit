@@ -116,7 +116,7 @@ def generate_pdf(sorted_scores, user_name, user_role, data_functie):
 
 def upload_json(json_data, user_name):
     # Verbinding maken met GitHub
-    g = Github("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")  
+    g = Github("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")  
     repo = g.get_repo("TimValks/steinn")  
     
     folder_path = "resultaten"  # Mapnaam waarin de bestanden zich bevinden
