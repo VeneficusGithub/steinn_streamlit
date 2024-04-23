@@ -4,7 +4,10 @@ from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 from github import Github
 import json
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
 
 def generate_pdf(sorted_scores, user_name, user_role, data_functie):
         # Generate a PDF document
@@ -57,7 +60,12 @@ def generate_pdf(sorted_scores, user_name, user_role, data_functie):
 
 def upload_json(json_data, user_name):
     # Verbinding maken met GitHub
-    g = Github("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")  
+    token = os.getenv("GITHUB_TOKEN")
+    if token is None:
+        raise Exception("GitHub token niet gevonden in environment variabelen")
+
+    # Verbinding maken met GitHub
+    g = Github(token)  
     repo = g.get_repo("TimValks/steinn")  
     
     folder_path = "resultaten"  # Mapnaam waarin de bestanden zich bevinden
