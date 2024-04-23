@@ -5,47 +5,6 @@ from reportlab.pdfgen import canvas
 from github import Github
 import json
 
-def average_TF(scores):
-    # Selecteer de scores voor vraag 1, vraag 3 en vraag 5
-    selected_scores = [scores[0], scores[8], scores[16], scores[24], scores[32]]
-    # Bereken het gemiddelde
-    average = sum(selected_scores) / len(selected_scores)
-    return average
-
-def average_AM(scores):
-    selected_scores_2 = [scores[1], scores[9], scores[17], scores[25], scores[33]]
-    average = sum(selected_scores_2)/ len(selected_scores_2)
-    return average
-
-def average_AU(scores):
-    selected_scores_3 = [scores[2], scores[10], scores[18], scores[26], scores[34]]
-    average = sum(selected_scores_3)/len(selected_scores_3)
-    return average
-
-def average_ZE(scores):
-    selected_scores_4 = [scores[3], scores[11], scores[19], scores[27], scores[35]]
-    average = sum(selected_scores_4)/len(selected_scores_4)
-    return average
-
-def average_OC(scores):
-    selected_scores_5 = [scores[4], scores[12], scores[20], scores[28], scores[36]]
-    average = sum(selected_scores_5)/len(selected_scores_5)
-    return average
-
-def average_DV(scores):
-    selected_scores_6 = [scores[5], scores[13], scores[21], scores[29], scores[37]]
-    average = sum(selected_scores_6)/len(selected_scores_6)
-    return average
-
-def average_UI(scores):
-    selected_scores_7 = [scores[6], scores[14], scores[22], scores[30], scores[38]]
-    average = sum(selected_scores_7)/len(selected_scores_7)
-    return average
-
-def average_LS(scores):
-    selected_scores_4 = [scores[7], scores[15], scores[23], scores[31], scores[39]]
-    average = sum(selected_scores_4)/len(selected_scores_4)
-    return average
 
 def generate_pdf(sorted_scores, user_name, user_role, data_functie):
         # Generate a PDF document
@@ -95,24 +54,6 @@ def generate_pdf(sorted_scores, user_name, user_role, data_functie):
 
     c.save()
     return "result.pdf"  # Retourneer de bestandsnaam van het gegenereerde PDF-bestand
-
-# def upload_to_github(pdf_file, user_name):
-#     # Verbinding maken met GitHub
-#     g = Github("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")  # Voeg hier je GitHub-toegangstoken toe
-#     repo = g.get_repo("TimValks/steinn")  
-    
-#     timestamp = datetime.now().strftime("%Y-%m-%d")
-#     folder_path = "resultaten"  # Mapnaam waarin je de bestanden wilt uploaden
-#     file_path = f"{folder_path}/result_{user_name}_{timestamp}.pdf"
-#     # Inhoud van het bestand
-#     with open(pdf_file, "rb") as f:
-#         contents = f.read()
-
-#     # Bestand aanmaken
-#     try:
-#         repo.create_file(file_path, "Commit message", contents, branch="master")
-#     except Exception as e:
-#         print("Fout bij het uploaden van het bestand naar GitHub:", e)
 
 def upload_json(json_data, user_name):
     # Verbinding maken met GitHub
@@ -275,27 +216,6 @@ def main():
                                 "uitleg": "Als je loopbaananker levensstijl is, wil je niet een situatie opgeven waarin je je persoonlijke behoeften, de behoeften van je gezin en de eisen die je loopbaan stelt met elkaar in evenwicht kunt brengen en verenigen. Je wilt dat alle belangrijke onderdelen van je leven samenwerken in de richting van een geïntegreerd geheel, en je hebt daarom een loopbaansituatie nodig die flexibel genoeg is om een dergelijke integratie tot stand te brengen. Misschien moet je sommige aspecten van de loopbaan opofferen (bijvoorbeeld een verhuizing naar een andere plaats die een promotie zou inhouden, maar je hele leefsituatie op haar kop zou zetten), en je definieert succes niet alleen op grond van succes in je loopbaan. Je vindt dat je identiteit meer te maken heeft met hoe je je leven in zijn geheel leeft, waar je je vestigt, hoe je met je gezinssituatie omgaat, en hoe je jezelf ontwikkelt dan met een bepaalde baan of organisatie. Je vragenlijstscore op dit terrein staat in de achtste kolom van het scoreblad onder LS."}
     }
 
-    # Sorteer de gemiddelde scores van hoog naar laag
-#     sorted_scores = sorted(scores.items(), key=lambda x: x[1]["gemiddelde"], reverse=True)
-# # Toon de gerangschikte gemiddelde scores
-#     for category, data in sorted_scores:
-#         st.write(f"{category}: {data['gemiddelde']:.2f}")
-#         st.write(f"Uitleg: {data['uitleg']}")
-
-#     pdf_file = generate_pdf(sorted_scores, user_name)
-
-# # Omzetten van de gesorteerde scores naar JSON-formaat
-#     json_data = json.dumps({category: category_averages for category in sorted_scores})
-
-# # Uploaden van JSON naar GitHub
-#     upload_json(json_data, user_name)
-
-# # Downloadknop voor het PDF-bestand toevoegen aan de Streamlit-app
-#     with open(pdf_file, "rb") as f:
-#         data = f.read()
-#     st.download_button(label="Click here to download PDF", data=data, file_name="result.pdf", mime="application/pdf")
-#     st.success("PDF-bestand is gedownload!")
-
     sorted_scores = sorted(scores.items(), key=lambda x: x[1]["gemiddelde"], reverse=True)
 
 # Toon de gerangschikte gemiddelde scores
@@ -320,30 +240,6 @@ def main():
         data = f.read()
     st.download_button(label="Click here to download PDF", data=data, file_name="result.pdf", mime="application/pdf")
     st.success("PDF-bestand is gedownload!")
-
-    # pdf_file = generate_pdf(sorted_scores, user_name)
-
-    # # Uploaden van PDF naar GitHub
-    # # upload_to_github(pdf_file, user_name)
-
-
-
-    # # Downloadknop voor het PDF-bestand toevoegen aan de Streamlit-app
-    # with open(pdf_file, "rb") as f:
-    #     data = f.read()
-    # st.download_button(label="Click here to download PDF", data=data, file_name="result.pdf", mime="application/pdf")
-    # st.success("PDF-bestand is gedownload!")
-
-    
-    #     # Genereer het PDF-bestand
-    # pdf_file = generate_pdf(sorted_scores)
-    
-    # # Uploaden van PDF naar GitHub
-    # upload_to_github(pdf_file)
-
-    # st.download_button(label="Click here to download PDF", data=pdf_file, file_name="result.pdf", mime="application/pdf")
-    # st.success("PDF-bestand is gedownload!")
-   
 
 
 if __name__ == "__main__":
