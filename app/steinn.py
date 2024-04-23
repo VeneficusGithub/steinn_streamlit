@@ -95,8 +95,8 @@ def main():
     else:
         st.write("Voer alstublieft uw naam in het bovenstaande veld in.")
 
-    user_role = st.selectbox("Functie:", ["Trainee", "Consultant"])
-    data_functie = st.selectbox("Met welke functie associeer je jezelf het meest:", ["Data Analist", "Data Engineer", "Data Scientist"])
+    user_role = st.selectbox("Functie:", ["Trainee", "Consultant", "Interne Team"])
+    data_functie = st.selectbox("Met welke functie associeer je jezelf het meest:", ["Data Analist", "Data Engineer", "Data Scientist", "Interne Team"])
 
     # Vragenlijst
     st.header("Vragenlijst")
