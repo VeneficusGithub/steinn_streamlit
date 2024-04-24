@@ -66,7 +66,7 @@ def upload_json(json_data, user_name):
 
     # Verbinding maken met GitHub
     g = Github(token)  
-    repo = g.get_repo("TimValks/steinn")  
+    repo = g.get_repo("VeneficusGithub/steinn_streamlit")  
     
     folder_path = "resultaten"  # Mapnaam waarin de bestanden zich bevinden
 
